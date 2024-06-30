@@ -1,0 +1,15 @@
+<%= simple_form_for(@todo) do |f| %>
+  <%= f.error_notification %>
+  <% if f.object.errors[:base].present? %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence %>
+  <% end %>
+
+  <div class="form-inputs p-text-sizing">
+    <%= f.input :title, label: 'Título' %>
+  </div>
+
+  <div class="form-actions d-flex pt-4">
+    <%= f.submit "Salvar", class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm me-3 p-text-sizing" %>
+    <%= link_to "Voltar", request.referer || root_path, class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm p-text-sizing" %>
+  </div>
+<% end %>

@@ -1,2 +1,20 @@
 <h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+
+<%= link_to new_todo_path do %>
+  <div id="add-post-btn"><i class="fa-solid fa-circle-plus fa-2xl"></i></div>
+<% end %>
+
+
+<% if @todos %>
+  <% @todos.each do |todo| %>
+    <h3><%= todo %></h3>
+    <p>Usuário: <%= todo.user.first_name %></p>
+    <p>Título: <%= todo.title %></p>
+    <% if todo.completed == false %>
+      <p>Status: Pending</p>
+      <% else %>
+      <p>Status: Completed</p>
+    <% end %>
+    <%= link_to 'Visualizar', todo_path(todo) %>
+  <% end %>
+<% end %>

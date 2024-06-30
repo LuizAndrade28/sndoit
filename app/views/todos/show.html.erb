@@ -1,0 +1,6 @@
+<h1>Show</h1>
+<p><%= @todo.title %></p>
+<p>Status:<%= @status %></p>
+<%= link_to 'Voltar', root_path %>
+<%= link_to 'Editar', edit_todo_path(@todo) %>
+<%= link_to 'Excluir', todo_path(@todo), data: { turbo_method: :delete, turbo_confirm: "Você tem certeza?" } %>
