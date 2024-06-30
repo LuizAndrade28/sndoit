@@ -1,7 +1,13 @@
 <h1>Pages#home</h1>
 
-<%= link_to new_todo_path do %>
-  <div id="add-post-btn"><i class="fa-solid fa-circle-plus fa-2xl"></i></div>
+<%# link_to new_todo_path do %>
+  <%# <div id="add-post-btn"><i class="fa-solid fa-circle-plus fa-2xl"></i></div> %>
+<%# end %>
+
+<%= link_to "Criar novo todo", new_todo_path %>
+
+<% if current_user %>
+  <p><%= current_user.first_name %></p>
 <% end %>
 
 
@@ -10,7 +16,7 @@
     <h3><%= todo %></h3>
     <p>Usuário: <%= todo.user.first_name %></p>
     <p>Título: <%= todo.title %></p>
-    <% if todo.completed == false %>
+    <% if todo.status == false %>
       <p>Status: Pending</p>
       <% else %>
       <p>Status: Completed</p>

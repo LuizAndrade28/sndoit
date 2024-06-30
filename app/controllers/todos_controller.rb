@@ -15,7 +15,7 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new(todo_params)
     @todo.user_id = current_user.id
-    @todo.completed = false
+    @todo.status = false
 
     if @todo.save
       redirect_to @todo, notice: 'Todo was successfully created. 🟢'
