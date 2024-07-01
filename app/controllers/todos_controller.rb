@@ -3,19 +3,20 @@ class TodosController < ApplicationController
   before_action :set_todo, only: %i[show edit update destroy]
 
   def show
-    authorize @todo
-    @todo = Todo.find(params[:id])
-    @status = @todo.completed == false ? "Pending" : "Completed"
+    @status = @todo.status == false ? "Pending" : "Completed"
   end
 
   def new
     @todo = Todo.new
+    authorize @todo
   end
 
   def create
     @todo = Todo.new(todo_params)
     @todo.user_id = current_user.id
     @todo.status = false
+
+    authorize @todo
 
     if @todo.save
       redirect_to @todo, notice: 'Todo was successfully created. 🟢'
@@ -43,6 +44,7 @@ class TodosController < ApplicationController
   private
   def set_todo
     @todo = Todo.find(params[:id])
+    authorize @todo
   end
 
   def todo_params

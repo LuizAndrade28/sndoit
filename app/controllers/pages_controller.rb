@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     if current_user && Todo.any?
-      @todos = current_user&.todos
+      @todos = policy_scope(Todo)
     end
   end
 end

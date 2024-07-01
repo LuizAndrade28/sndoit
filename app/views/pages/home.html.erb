@@ -1,10 +1,8 @@
 <h1>Pages#home</h1>
 
-<%# link_to new_todo_path do %>
-  <%# <div id="add-post-btn"><i class="fa-solid fa-circle-plus fa-2xl"></i></div> %>
-<%# end %>
-
-<%= link_to "Criar novo todo", new_todo_path %>
+<% if policy(Todo).new? && current_user %>
+  <%= link_to "Criar novo todo", new_todo_path %>
+<% end %>
 
 <% if current_user %>
   <p><%= current_user.first_name %></p>
