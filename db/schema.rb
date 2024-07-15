@@ -14,22 +14,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_165518) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "friends", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_friends_on_user_id"
-  end
-
-  create_table "friends_lists", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "friend_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["friend_id"], name: "index_friends_lists_on_friend_id"
-    t.index ["user_id"], name: "index_friends_lists_on_user_id"
-  end
-
   create_table "subtodos", force: :cascade do |t|
     t.string "title"
     t.boolean "status"
@@ -46,10 +30,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_165518) do
     t.boolean "status"
     t.date "date"
     t.bigint "user_id", null: false
-    t.bigint "friend_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["friend_id"], name: "index_todos_on_friend_id"
     t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
@@ -68,10 +50,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_165518) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "friends", "users"
-  add_foreign_key "friends_lists", "friends"
-  add_foreign_key "friends_lists", "users"
   add_foreign_key "subtodos", "todos"
-  add_foreign_key "todos", "friends"
   add_foreign_key "todos", "users"
 end

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show]
 
   def show
-    @friends = @user.friends_list
+    authorize @user
   end
 
   private

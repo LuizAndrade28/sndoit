@@ -6,12 +6,7 @@ class TodoPolicy < ApplicationPolicy
   end
 
   def show?
-    if record.user == user
-      true
-    elsif record.friend_id
-      Friend.find(record.friend_id).user == user
-    end
-    # raise
+    is_onwer?
   end
 
   def new?
@@ -32,6 +27,10 @@ class TodoPolicy < ApplicationPolicy
 
   def destroy?
     is_onwer? || is_admin?
+  end
+
+  def completed?
+    true
   end
 
   private

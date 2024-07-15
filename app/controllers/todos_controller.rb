@@ -41,6 +41,11 @@ class TodosController < ApplicationController
     redirect_to root_path, notice: 'Todo was successfully deleted. 🟢'
   end
 
+  def completed
+    @todos = Todo.where(status: true)
+    authorize @todos
+  end
+
   private
   def set_todo
     @todo = Todo.find(params[:id])
@@ -48,6 +53,6 @@ class TodosController < ApplicationController
   end
 
   def todo_params
-    params.require(:todo).permit(:title, :date, :time, :friend_id)
+    params.require(:todo).permit(:title, :date, :time)
   end
 end
