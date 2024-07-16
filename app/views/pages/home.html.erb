@@ -1,2 +1,54 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="d-flex align-items-center">
+  <h2>SNDOIT</h2>
+  <% if current_user %>
+    <p class="ms-2">Usuário: <%= current_user.first_name %></p>
+  <% end %>
+</div>
+<hr>
+<% if policy(Todo).new? && current_user %>
+  <%= link_to new_todo_path do %>
+    <i class="fa-solid fa-circle-plus" style="color: #b19072;"></i>
+  <% end %>
+<% end %>
+
+<% if @todos && !@todos.empty? && current_user %>
+  <div class="d-flex">
+    <h4>SUMMARY</h4>
+    <div class="d-flex ms-3">
+      <p class="me-2"><%= @todos.count %> TO-DOS</p>
+      <p><%= @todos_completed %> DONE</p>
+    </div>
+  </div>
+  <% @todos.each do |todo| %>
+    <div class="border d-flex align-items-center">
+      <div class="me-4">
+        <div class="d-flex align-items-centerv">
+          <p><%= todo.title %></p>
+          <% if todo.importance == "High" %>
+            <i class="fa-solid fa-circle" style="color: #ff0000;"></i>
+            <% elsif todo.importance == "Medium" %>
+            <i class="fa-regular fa-circle" style="color: #cf8d30;"></i>
+            <% elsif todo.importance == "Low" %>
+            <i class="fa-regular fa-circle" style="color: #50ce69;"></i>
+          <% end %>
+        </div>
+        <p><%= todo.date_created %></p>
+      </div>
+      <%= link_to todo_path(todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Completar todo?"} do %>
+        <i class="fa-solid fa-circle-check" style="color: #2cc396;"></i>
+      <% end %>
+      <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Você tem certeza?" } do %>
+        <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
+      <% end %>
+      <%= link_to todo_path(todo) do %>
+        <i class="fa-regular fa-eye" style="color: #5d5227;"></i>
+      <% end %>
+    </div>
+  <% end %>
+<% elsif current_user && @todos.nil? || current_user && @todos.empty? %>
+  <div>
+    <h4>SUMMARY</h4>
+    <h3>NO ENTRIES</h3>
+  </div>
+  <p>WELL, TIME TO CREATE YOUR FIRST TO-DO, RIGHT? <i class="fa-regular fa-face-grin-tongue-wink"></i></p>
+<% end %>

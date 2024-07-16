@@ -1,0 +1,61 @@
+<h1>Show</h1>
+<div class="d-flex">
+  <div class="d-flex">
+    <p><%= @todo.title %></p>
+    <% if @todo.importance == "High" %>
+      <i class="fa-solid fa-circle" style="color: #ff0000;"></i>
+      <% elsif @todo.importance == "Medium" %>
+      <i class="fa-regular fa-circle" style="color: #cf8d30;"></i>
+      <% elsif @todo.importance == "Low" %>
+      <i class="fa-regular fa-circle" style="color: #50ce69;"></i>
+    <% end %>
+    <% if policy(@todo).edit? && policy(@todo).destroy? %>
+    <%= link_to 'Editar', edit_todo_path(@todo) %>
+    <%= link_to 'Excluir', todo_path(@todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
+</div>
+<p><%= @todo.date_created %></p>
+
+<h3>Notes</h3>
+
+<% if !@todo.notes.empty? %>
+  <p><%= @todo.notes %></p>
+<% else %>
+  <p>No entries</p>
+<% end %>
+
+<h3>Subtasks</h3>
+<%= link_to 'Add subtask', new_todo_subtodo_path(@todo, @subtodo) %>
+
+<% if @subtodos.present? %>
+  <% @subtodos.each do |subtodo| %>
+    <% if policy(subtodo).edit? && policy(subtodo).destroy? && policy(subtodo).update? %>
+      <div class="d-flex">
+        <% if subtodo.status == false %>
+          <p><%= subtodo.title %></p>
+          <%= link_to todo_subtodo_path(@todo, subtodo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Complete subtodo?" } do %>
+                  <i class="fa-solid fa-circle-check" style="color: #2cc396;"></i>
+          <% end %>
+          <%= link_to edit_todo_subtodo_path(@todo, subtodo) do %>
+            <i class="fa-regular fa-pen-to-square"></i>
+          <% end %>
+          <%= link_to todo_subtodo_path(@todo, subtodo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+            <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
+          <% end %>
+        <% elsif subtodo.status == true %>
+          <p><del><%= subtodo.title %></del></p>
+          <%= link_to todo_subtodo_path(@todo, subtodo, uncomplete: true), data: { turbo_method: :patch, turbo_confirm: "Uncomplete subtodo?" } do %>
+            <i class="fa-solid fa-rotate-left"></i>
+          <% end %>
+          <%= link_to todo_subtodo_path(@todo, subtodo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+            <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+<% end %>
+
+<%= link_to 'Voltar', root_path %>
