@@ -1,0 +1,20 @@
+<%= simple_form_for [@todo, @subtodo] do |f| %>
+  <%= f.error_notification %>
+  <% if f.object.errors[:base].present? %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence %>
+  <% end %>
+
+  <div class="form-inputs p-text-sizing">
+    <%= f.input :title, label: 'Título' %>
+  </div>
+
+  <div class="form-actions d-flex pt-4">
+    <%= f.submit "Save", class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm me-3 p-text-sizing", name: "confirm" %>
+    <%= f.submit "Save and create subtodo ", class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm me-3 p-text-sizing", name: "confirm_and_new" %>
+    <% if controller_name == 'subtodos' && action_name != 'edit' %>
+      <%= f.submit "Finish and create later", class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm me-3 p-text-sizing", name: "finish" %>
+    <% elsif controller_name == 'subtodos' && action_name == 'edit' %>
+      <%= link_to "Back", request.referer, class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm p-text-sizing" %>
+    <% end %>
+  </div>
+<% end %>

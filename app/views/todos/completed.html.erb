@@ -1,1 +1,8 @@
 <h1>Completed todos</h1>
+<% @todos.each do |todo| %>
+  <div>
+    <p><%= todo.title %></p>
+    <p>Created at: <%= todo.date_created %></p>
+    <p>Completed in: <%= todo.date_updated %></p>
+  </div>
+<% end %>

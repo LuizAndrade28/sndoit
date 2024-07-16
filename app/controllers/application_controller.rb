@@ -18,11 +18,11 @@ class ApplicationController < ActionController::Base
   end
 
   # Pundit: white-list approach
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  def user_not_authorized
-    flash[:alert] = "Você não pode realizar essa ação."
-    redirect_to(root_path)
-  end
+  # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  # def user_not_authorized
+  #   flash[:alert] = "Você não pode realizar essa ação."
+  #   redirect_to(root_path)
+  # end
 
   private
 

@@ -6,10 +6,13 @@
 
   <div class="form-inputs p-text-sizing">
     <%= f.input :title, label: 'Título' %>
+    <%= f.input :importance, label: 'Importância', collection: [ "High", "Medium", "Low" ] %>
+    <%= f.input :notes, label: 'Detalhes' %>
   </div>
 
   <div class="form-actions d-flex pt-4">
-    <%= f.submit "Salvar", class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm me-3 p-text-sizing" %>
-    <%= link_to "Voltar", request.referer || root_path, class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm p-text-sizing" %>
+    <%= f.submit "Save", class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm me-3 p-text-sizing", name: "confirm" %>
+    <%= f.submit "Save and create subtodo ", class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm me-3 p-text-sizing", name: "confirm_and_subtodo" %>
+    <%= link_to "Back", request.referer || root_path, class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm p-text-sizing" %>
   </div>
 <% end %>

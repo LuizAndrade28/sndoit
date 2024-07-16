@@ -1,9 +1,13 @@
 class TodosController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_todo, only: %i[show edit update destroy]
+  before_action :set_todo, only: %i[edit update destroy]
+  after_action :verify_authorized, only: %i[show]
 
   def show
-    @status = @todo.status == false ? "Pending" : "Completed"
+    # @status = @todo.status == false ? "Pending" : "Completed"
+    @todo = authorize Todo.find(params[:id])
+    @subtodos = policy_scope(Subtodo).where(todo: @todo)
+    @subtodo = @todo.subtodos.new
   end
 
   def new
@@ -18,10 +22,20 @@ class TodosController < ApplicationController
 
     authorize @todo
 
-    if @todo.save
-      redirect_to @todo, notice: 'Todo was successfully created. 🟢'
-    else
-      render 'new', notice: 'Todo was not created. 🔴'
+    # if @todo.save
+    #   redirect_to @todo, notice: 'Todo was successfully created. 🟢'
+    # else
+    #   render 'new', notice: 'Todo was not created. 🔴'
+    # end
+
+    respond_to do |format|
+      if params[:confirm].present? && @todo.save!
+        format.html { redirect_to @todo, notice: 'Todo was successfully created. 🟢' }
+      elsif params[:confirm_and_subtodo].present? && @todo.save!
+        format.html { redirect_to new_todo_subtodo_path(@todo), notice: 'Todo was successfully created. 🟢' }
+      else
+        format.html { render :new, notice: 'Todo was not created. 🔴' }
+      end
     end
   end
 
@@ -29,7 +43,11 @@ class TodosController < ApplicationController
   end
 
   def update
-    if @todo.update(todo_params)
+    if params[:complete].present?
+      @todo.status = true
+      @todo.save!
+      redirect_to root_path, notice: 'Todo was successfully completed. 🟢'
+    elsif @todo.update(todo_params)
       redirect_to @todo, notice: 'Todo was successfully updated. 🟢'
     else
       render 'edit', notice: 'Todo was not updated. 🔴'
@@ -53,6 +71,6 @@ class TodosController < ApplicationController
   end
 
   def todo_params
-    params.require(:todo).permit(:title, :date, :time)
+    params.require(:todo).permit(:title, :importance, :notes)
   end
 end
