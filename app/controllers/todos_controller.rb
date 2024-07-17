@@ -6,6 +6,9 @@ class TodosController < ApplicationController
   def show
     # @status = @todo.status == false ? "Pending" : "Completed"
     @todo = authorize Todo.find(params[:id])
+    @previous_todo = Todo.where("id < ? AND user_id = ? AND status = ?", @todo.id, current_user.id, false).order(id: :desc).first
+    @next_todo = Todo.where("id > ? AND user_id = ? AND status = ?", @todo.id, current_user.id, false).order(id: :asc).first
+
     @subtodos = policy_scope(Subtodo).where(todo: @todo)
     @subtodo = @todo.subtodos.new
   end

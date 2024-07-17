@@ -1,4 +1,15 @@
 <h1>Show</h1>
+
+<div>
+  <% if @previous_todo %>
+    <%= link_to '< Previous todo', todo_path(@previous_todo, sort_by: params[:sort_by]) %>
+  <% end %>
+
+  <% if @next_todo %>
+    <%= link_to '> Next todo', todo_path(@next_todo, sort_by: params[:sort_by]) %>
+  <% end %>
+</div>
+
 <div class="d-flex">
   <div class="d-flex">
     <p><%= @todo.title %></p>
