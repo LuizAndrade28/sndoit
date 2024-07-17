@@ -10,3 +10,56 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+/* Initial config */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+    // font-size: 62.5%;
+
+    --default-border: .1rem solid rgba(0, 0, 0, 0.15);
+    --default-border-radius: 1.2rem;
+}
+
+html {
+  min-height: 100vh;
+  flex: 1;
+  scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    // font-size: 1.4rem;
+
+    background-color: white;
+
+    min-height: 100vh;
+    height: fit-content;
+}
+
+.body-content {
+  min-height: 90vh;
+}
+
+
+// Media query fonts
+// @media (max-width: 1000px) {
+//   h1 {
+//     font-size: 100px;
+//   }
+// }
+
+// @media (max-width: 500px) {
+//   h1 {
+//     font-size: 50px;
+//   }
+// }
