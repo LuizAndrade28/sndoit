@@ -48,8 +48,17 @@ class TodosController < ApplicationController
   def update
     if params[:complete].present?
       @todo.status = true
-      @todo.save!
+      if @todo.save!
+        @todo.subtodos.each do |subtodo|
+          subtodo.status = true
+          subtodo.save!
+        end
+      end
       redirect_to root_path, notice: 'Todo was successfully completed. 🟢'
+    elsif params[:uncomplete].present?
+      @todo.status = false
+      @todo.save!
+      redirect_to todo_path(@todo)
     elsif @todo.update(todo_params)
       redirect_to @todo, notice: 'Todo was successfully updated. 🟢'
     else
