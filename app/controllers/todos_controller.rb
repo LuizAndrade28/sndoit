@@ -73,6 +73,9 @@ class TodosController < ApplicationController
 
   def completed
     @todos = Todo.where(status: true)
+
+    @todos = @todos.page(params[:page]).per(5)
+
     authorize @todos
   end
 

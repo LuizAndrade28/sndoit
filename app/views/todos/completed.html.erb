@@ -12,3 +12,7 @@
     <% end %>
   </div>
 <% end %>
+<%# POST PAGINATION %>
+<div class="pagination-container d-flex justify-content-end mt-5 mb-2">
+  <%= paginate @todos, window: 2 %>
+</div>
