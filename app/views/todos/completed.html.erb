@@ -4,5 +4,11 @@
     <p><%= todo.title %></p>
     <p>Created at: <%= todo.date_created %></p>
     <p>Completed in: <%= todo.date_updated %></p>
+    <%= link_to todo_path(todo, uncomplete: true), data: { turbo_method: :patch, turbo_confirm: "Uncomplete subtodo?" } do %>
+      <i class="fa-solid fa-rotate-left"></i>
+    <% end %>
+    <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+      <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
+    <% end %>
   </div>
 <% end %>
