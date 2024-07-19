@@ -1,0 +1,33 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  font-size: 2.4vmin;
+}
+
+.last a {
+  color: #666c85 !important;
+  text-decoration: none !important;
+  padding-right: 1.5px;
+  padding-left: 1.5px;
+}
+
+.first a {
+  color: #666c85 !important;
+  text-decoration: none !important;
+  padding-right: 1.5px;
+  padding-left: 1.5px;
+}
+
+.page a {
+  color: #666c85;
+  padding-right: 1px;
+  padding-left: 1px;
+  text-decoration: none !important;
+}
+
+.page.current {
+  padding-right: 1px !important;
+  padding-left: 1px !important;
+  color: #c3c7d8 !important;
+}

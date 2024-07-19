@@ -3,6 +3,7 @@ class PagesController < ApplicationController
 
   def home
     if current_user && Todo.any?
+
       @todos = policy_scope(Todo).where(status: false)
       @todos_default = @todos.order(created_at: :desc)
       case params[:sort_by]
@@ -19,5 +20,7 @@ class PagesController < ApplicationController
       end
       @todos_completed = policy_scope(Todo).where(status: true).count
     end
+
+    @todos = @todos.page(params[:page]).per(5)
   end
 end
