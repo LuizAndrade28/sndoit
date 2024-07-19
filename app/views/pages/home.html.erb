@@ -5,6 +5,20 @@
   <% end %>
 </div>
 <hr>
+
+<div class="sort-by">
+  <%= form_with url: root_path, method: :get, local: true do %>
+    <%= hidden_field_tag "q[title_cont]", params.dig(:q, :title_cont) %>
+    <select name="sort_by" aria-label="select" class="shadow-sm">
+      <option value="created_at_desc" <%= "selected" if params[:sort_by] == "created_at_desc" %>>Mais novo</option>
+      <option value="created_at_asc" <%= "selected" if params[:sort_by] == "created_at_asc" %>>Mais antigo</option>
+      <option value="title_asc" <%= "selected" if params[:sort_by] == "title_asc" %>>A-Z</option>
+      <option value="title_desc" <%= "selected" if params[:sort_by] == "title_desc" %>>Z-A</option>
+    </select>
+    <input type="submit" value="Sort by" class="shadow-sm">
+  <% end %>
+</div>
+
 <% if policy(Todo).new? && current_user %>
   <%= link_to new_todo_path do %>
     <i class="fa-solid fa-circle-plus" style="color: #b19072;"></i>
