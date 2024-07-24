@@ -21,6 +21,6 @@ class PagesController < ApplicationController
       @todos_completed = policy_scope(Todo).where(status: true).count
     end
 
-    @todos = @todos.page(params[:page]).per(5)
+    @todos = @todos&.page(params[:page])&.per(8)
   end
 end

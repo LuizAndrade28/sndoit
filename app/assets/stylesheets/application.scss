@@ -18,13 +18,19 @@
     box-sizing: border-box;
 }
 
-p {
+p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
+  color: black !important;
+}
+
+a {
+  text-decoration: none !important;
+  color: inherit !important;
 }
 
 :root {
-    // font-size: 62.5%;
+    font-size: 62.5%;
 
     --default-border: .1rem solid rgba(0, 0, 0, 0.15);
     --default-border-radius: 1.2rem;
@@ -38,7 +44,7 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
-    // font-size: 1.4rem;
+    font-size: 1.4rem;
 
     background-color: white;
 

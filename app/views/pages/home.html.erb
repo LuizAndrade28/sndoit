@@ -1,72 +1,64 @@
-<div class="d-flex align-items-center">
-  <h1>SNDOIT</h1>
-  <% if current_user %>
-    <p class="ms-2">Usuário: <%= current_user.first_name %></p>
-  <% end %>
-</div>
-<hr>
-
-<div class="sort-by">
-  <%= form_with url: root_path, method: :get, local: true do %>
-    <%= hidden_field_tag "q[title_cont]", params.dig(:q, :title_cont) %>
-    <select name="sort_by" aria-label="select" class="shadow-sm">
-      <option value="created_at_desc" <%= "selected" if params[:sort_by] == "created_at_desc" %>>Mais novo</option>
-      <option value="created_at_asc" <%= "selected" if params[:sort_by] == "created_at_asc" %>>Mais antigo</option>
-      <option value="title_asc" <%= "selected" if params[:sort_by] == "title_asc" %>>A-Z</option>
-      <option value="title_desc" <%= "selected" if params[:sort_by] == "title_desc" %>>Z-A</option>
-    </select>
-    <input type="submit" value="Sort by" class="shadow-sm">
-  <% end %>
-</div>
-
-<% if policy(Todo).new? && current_user %>
-  <%= link_to new_todo_path do %>
-    <i class="fa-solid fa-circle-plus" style="color: #b19072;"></i>
-  <% end %>
-<% end %>
-
-<% if @todos && !@todos.empty? && current_user %>
-  <div class="d-flex">
-    <h4>SUMMARY</h4>
-    <div class="d-flex ms-3">
-      <p class="me-2"><%= @todos.count %> TO-DOS</p>
-      <p><%= @todos_completed %> DONE</p>
-    </div>
-  </div>
-  <% @todos.each do |todo| %>
-    <div class="border d-flex align-items-center">
-      <div class="me-4">
-        <div class="d-flex align-items-centerv">
-          <p><%= todo.title %></p>
-          <% if todo.importance == "High" %>
-            <i class="fa-solid fa-circle" style="color: #ff0000;"></i>
-            <% elsif todo.importance == "Medium" %>
-            <i class="fa-regular fa-circle" style="color: #cf8d30;"></i>
-            <% elsif todo.importance == "Low" %>
-            <i class="fa-regular fa-circle" style="color: #50ce69;"></i>
-          <% end %>
-        </div>
-        <p><%= todo.date_created %></p>
+<% if current_user %>
+  <header>
+      <span class="line-test"></span>
+    <div class="d-flex align-items-center justify-content-between">
+      <h4>SUMMARY</h4>
+      <div class="d-flex align-items-center">
+        <p class="header-count-todo"><%= @todos.count %> TO-DOS</p>
+        <p class="header-count-todo"><%= @todos_completed %> DONE</p>
       </div>
-      <%= link_to todo_path(todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Completar todo?"} do %>
-        <i class="fa-solid fa-circle-check" style="color: #2cc396;"></i>
-      <% end %>
-      <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Você tem certeza?" } do %>
-        <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
-      <% end %>
-      <%= link_to todo_path(todo) do %>
-        <i class="fa-regular fa-eye" style="color: #5d5227;"></i>
-      <% end %>
     </div>
-  <% end %>
-  <%# POST PAGINATION %>
-  <div class="pagination-container d-flex justify-content-end mt-5 mb-2">
-    <%= paginate @todos, window: 2 %>
-  </div>
-<% elsif current_user && @todos.nil? || current_user && @todos.empty? %>
-  <div>
-    <h4>SUMMARY</h4>
-    <h3>NO ENTRIES</h3>
-  </div>
-  <p>WELL, TIME TO CREATE YOUR FIRST TO-DO, RIGHT? <i class="fa-regular fa-face-grin-tongue-wink"></i></p>
+    <span class="line-test"></span>
+  </header>
+
+  <%= render 'shared/sort_by' %>
+
+  <main>
+    <% if @todos && !@todos.empty? %>
+      <% @todos.each do |todo| %>
+          <div class="card-todo">
+            <div class="todo-header">
+              <p><%= todo.subtodos.count %> subtasks</p>
+              <div class="todo-header-icons">
+                <%# LINK TO DELETE TODO %>
+                <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Você tem certeza?" } do %>
+                  <i class="fa-solid fa-circle-xmark ms-2" style="color: #fd0808;"></i>
+                <% end %>
+                <%# LINK TO SEE TODO %>
+                <%= link_to todo_path(todo) do %>
+                  <i class="fa-regular fa-eye ms-2"></i>
+                <% end %>
+              </div>
+            </div>
+            <div class="todo-main">
+              <div class="d-flex align-items-center">
+                <%= link_to todo_path(todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Completar todo?"} do %>
+                  <i class="fa-solid fa-square"></i>
+                <% end %>
+                <p><%= todo.title %></p>
+                <%# IMPORTANCE LEVEL %>
+                <% if todo.importance == "High" %>
+                  <i class="fa-solid fa-circle" style="color: #ff0000;"></i>
+                <% elsif todo.importance == "Medium" %>
+                  <i class="fa-solid fa-circle" style="color: #cf8d30;"></i>
+                <% elsif todo.importance == "Low" %>
+                  <i class="fa-solid fa-circle" style="color: #50ce69;"></i>
+                <% end %>
+              </div>
+              <p><%= todo.date_created %></p>
+            </div>
+          </div>
+      <% end %>
+      <%# POST PAGINATION %>
+      <div class="pagination-container d-flex justify-content-end mt-5 mb-2">
+        <%= paginate @todos, window: 2 %>
+      </div>
+    <% elsif @todos.nil? || @todos.empty? %>
+      <p>WELL, TIME TO CREATE A TO-DO, RIGHT? <i class="fa-regular fa-face-grin-tongue-wink"></i></p>
+    <% end %>
+  </main>
+
+  <footer>
+    <%= render 'shared/new_todo' %>
+  </footer>
 <% end %>
