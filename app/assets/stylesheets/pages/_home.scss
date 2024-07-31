@@ -1,5 +1,5 @@
 @media (max-width: 650px) {
-  .line-test {
+  .line-sep {
     display: block;
     width: 100%;
     margin: 1rem 0;
@@ -15,19 +15,34 @@
   font-size: 1rem;
   }
 
+  header #content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 2rem;
+  }
+
   header h4 {
     font-weight: bold;
     font-size: 2rem;
-    margin: 0 2rem;
   }
 
   header p:last-child {
     margin-left: 1rem;
-    margin-right: 6rem;
+    // margin-right: 6rem;
   }
 
   main {
-    margin: 2rem;
+    margin: 2rem 0;
+    padding: 0 2rem;
+  }
+
+  .card-track-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 2rem;
+    margin-top: 2rem;
   }
 
   .card-todo {

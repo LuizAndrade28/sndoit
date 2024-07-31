@@ -1,19 +1,24 @@
 <% if current_user %>
   <header>
-      <span class="line-test"></span>
-    <div class="d-flex align-items-center justify-content-between">
+    <span class="line-sep"></span>
+    <div id="content">
       <h4>SUMMARY</h4>
       <div class="d-flex align-items-center">
-        <p class="header-count-todo"><%= @todos.count %> TO-DOS</p>
+        <p class="header-count-todo"><%= @todos_uncompleted %> TO-DOS</p>
         <p class="header-count-todo"><%= @todos_completed %> DONE</p>
       </div>
     </div>
-    <span class="line-test"></span>
+    <span span class="line-sep"></span>
   </header>
 
-  <%= render 'shared/sort_by' %>
-
-  <main>
+  <div class="card-track-header">
+    <%= render 'shared/sort_by' %>
+    <%# POST PAGINATION %>
+    <div class="pagination-container">
+      <%= paginate @todos, theme: 'default' %>
+    </div>
+  </div>
+    <main>
     <% if @todos && !@todos.empty? %>
       <% @todos.each do |todo| %>
           <div class="card-todo">
@@ -49,10 +54,6 @@
             </div>
           </div>
       <% end %>
-      <%# POST PAGINATION %>
-      <div class="pagination-container d-flex justify-content-end mt-5 mb-2">
-        <%= paginate @todos, window: 2 %>
-      </div>
     <% elsif @todos.nil? || @todos.empty? %>
       <p>WELL, TIME TO CREATE A TO-DO, RIGHT? <i class="fa-regular fa-face-grin-tongue-wink"></i></p>
     <% end %>
