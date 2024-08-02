@@ -1,0 +1,42 @@
+<%# The container tag
+  - available local variables
+    current_page:  a page object for the currently displayed page
+    total_pages:   total number of pages
+    per_page:      number of items to fetch per page
+    remote:        data-remote
+    paginator:     the paginator that renders the pagination tags inside
+-%>
+
+<%
+  def url_for_page(page)
+     url_for(params.permit.merge(page: page))
+   end
+%>
+
+<nav class="pagination" role="navigation" aria-label="pager">
+  <ul class="pagination">
+    <% if paginator.instance_variable_get('@options')[:current_page] > 1 %>
+      <li class="page-item">
+        <%= link_to raw('<i class="fa-solid fa-arrow-left-long"></i>'), url_for_page(paginator.instance_variable_get('@options')[:current_page] - 1), class: 'ms-1' %>
+      </li>
+    <% end %>
+
+    <% paginator.each_page do |page| %>
+      <% if page.left_outer? || page.right_outer? || page.inside_window? %>
+        <li class="page-item <%= 'active' if page.current? %>">
+          <%# link_to raw('<i class="fa fa-circle"></i>'), url_for_page(page), class: 'page-link' %>
+        </li>
+      <% elsif !page.was_truncated? %>
+        <li class="page-item disabled">
+          <span class="">…</span>
+        </li>
+      <% end %>
+    <% end %>
+
+    <% if paginator.instance_variable_get('@options')[:current_page] < paginator.instance_variable_get('@options')[:total_pages] %>
+      <li class="page-item">
+        <%= link_to raw('<i class="fa-solid fa-arrow-right-long"></i>'), url_for_page(paginator.instance_variable_get('@options')[:current_page] + 1), class: '' %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

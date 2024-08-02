@@ -1,0 +1,43 @@
+@media (max-width: 650px) {
+  #add-todo-btn {
+    display: flex;
+    justify-content: end;
+    position: fixed;
+    bottom: 28px;
+    right: 25px;
+    z-index: 1000;
+  }
+
+  #add-todo-btn i {
+    font-size: 3em !important;
+    color: #cf9a7b;
+    // padding-right: 2px;
+    padding-bottom: 2px;
+  }
+
+  .p-text-sizing {
+    font-size: 2.3vmin !important;
+  }
+}
+
+@media (min-width: 651px) {
+  #add-todo-btn {
+    display: flex;
+    justify-content: end;
+    position: fixed;
+    bottom: 36px;
+    right: 25px;
+    z-index: 1000;
+  }
+
+  #add-todo-btn i {
+    font-size: 3em !important;
+    color: #cf9a7b;
+    padding-right: 2px;
+    padding-bottom: 2px;
+  }
+
+  .p-text-sizing {
+    font-size: 2.3vmin !important;
+  }
+}

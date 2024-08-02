@@ -4,8 +4,12 @@ class PagesController < ApplicationController
   def home
     if current_user && Todo.any?
 
+      @todos_uncompleted = policy_scope(Todo).where(status: false, user_id: current_user.id).count
+      @todos_completed = policy_scope(Todo).where(status: true, user_id: current_user.id).count
+
       @todos = policy_scope(Todo).where(status: false)
       @todos_default = @todos.order(created_at: :desc)
+
       case params[:sort_by]
       when "created_at_asc"
         @todos = @todos.order(created_at: :asc)
@@ -18,9 +22,9 @@ class PagesController < ApplicationController
       else
         @todos = @todos_default
       end
-      @todos_completed = policy_scope(Todo).where(status: true).count
     end
 
-    @todos = @todos.page(params[:page]).per(5)
+    @todos = @todos&.page(params[:page])&.per(7)
+    # @todos = @todos.page(params[:page]).per(7)
   end
 end

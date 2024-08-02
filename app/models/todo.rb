@@ -11,6 +11,5 @@ class Todo < ApplicationRecord
   def date_updated
     updated_at.strftime("%d/%m/%Y")
   end
-
   # default_scope -> { order(created_at: :desc) }
 end
