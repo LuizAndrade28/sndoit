@@ -26,5 +26,10 @@ class PagesController < ApplicationController
 
     @todos = @todos&.page(params[:page])&.per(7)
     # @todos = @todos.page(params[:page]).per(7)
+
+    # Devise login
+    @resource = User.new
+    @resource_name = :user
+    @devise_mapping = Devise.mappings[:user]
   end
 end

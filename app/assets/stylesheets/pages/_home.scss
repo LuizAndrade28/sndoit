@@ -119,7 +119,61 @@
     margin-left: 1rem;
   }
 
+  .main {
+    grid-area: main !important;
+  }
+
+  .aside {
+    grid-area: aside !important;
+    border: .1rem solid rgba(0, 0, 0, 0.15);
+    padding: 4.4rem 5.7rem;
+    border-radius: 3rem;
+  }
+
+  .content {
+    display: grid;
+    grid-template-areas:
+        ". . . . ."
+        ". main . aside ."
+        ". . . . ."
+    ;
+    width: 100%;
+  }
+  .out-div {
+    display: flex;
+    align-items: center;
+    height: 90vh;
+  }
+
   main {
     margin: 2rem;
   }
+}
+
+#logo-test {
+	background: linear-gradient(-45deg, #ee7752, #ddab61, #ffc43b, #ff6c11);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+  width: 100%;
+	height: 100%;
+  border-radius: 3rem;
+  box-shadow: #6c6c6cd9 0rem 0rem 0.3rem 0.1rem;
+}
+
+// #logo-test img {
+//   // width: 180px;
+//   // height: 200px;
+//   // margin-top: 10px;
+// }
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
