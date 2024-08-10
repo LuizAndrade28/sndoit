@@ -90,6 +90,26 @@
   .todo-main p {
     margin-right: 1rem;
   }
+
+  .main {
+    margin-bottom: 2rem;
+  }
+
+  .out-div {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    margin-top: 5rem;
+  }
+
+  #logo-test img {
+    width: 12rem !important;
+    height: 17rem !important;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
 }
 
 @media (min-width: 660px) {
