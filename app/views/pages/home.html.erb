@@ -62,4 +62,15 @@
   <footer>
     <%= render 'shared/new_todo' %>
   </footer>
+<% else %>
+  <div class="out-div">
+    <div class="content">
+      <div id="logo-test" class="main d-flex justify-content-center align-items-center">
+        <%= image_tag('text-front-page.png', size: "160x120") %>
+      </div>
+      <div class="aside">
+        <%= render "devise/sessions/new", resource: @resource, resource_name: @resource_name, devise_mapping: @devise_mapping %>
+      </div>
+    </div>
+  </div>
 <% end %>

@@ -1,36 +1,32 @@
-<div class="nav" data-controller="nav-btn">
-  <input type="checkbox" id="nav-check">
-  <div class="nav-header d-flex align-items-center">
-    <%= link_to "/" do %>
-      <p>SNDT</p>
-    <% end %>
-  </div>
+<% if user_signed_in? %>
+  <div class="nav" data-controller="nav-btn">
+    <input type="checkbox" id="nav-check">
+    <div class="d-flex align-items-center">
+      <%= link_to "/" do %>
+        <%# image_tag('logo3.png', size: "80x60", alt: "Edit Entry") %>
+        <h3>Save and do it</h3>
+      <% end %>
+    </div>
+    <div class="nav-btn" id="n">
+      <label for="nav-check" class="nav-icon" data-action="click->nav-btn#default">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
 
-  <div class="nav-btn" id="n">
-    <label for="nav-check" class="nav-icon" data-action="click->nav-btn#default">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
-  </div>
+    <div class="nav-btn hidden" id="n-swap">
+      <label for="nav-check" class="nav-icon-swap" data-action="click->nav-btn#swap">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
 
-  <div class="nav-btn hidden" id="n-swap">
-    <label for="nav-check" class="nav-icon-swap" data-action="click->nav-btn#swap">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
-  </div>
-
-  <div class="nav-links">
-    <% if user_signed_in? %>
+    <div class="nav-links">
       <p class="nav-links__bg"><%= link_to "Edit profile", edit_user_registration_path %></p>
       <p class="nav-links__bg"><%= link_to "Completed To-dos", completed_todos_path %></p>
       <p class="nav-links__bg"><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete} %></p>
-    <% else %>
-      <p class="nav-item">
-        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-      </p>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>
