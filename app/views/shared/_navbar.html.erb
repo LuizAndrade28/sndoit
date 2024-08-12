@@ -1,10 +1,9 @@
 <% if user_signed_in? %>
   <div class="nav" data-controller="nav-btn">
     <input type="checkbox" id="nav-check">
-    <div class="d-flex align-items-center">
+    <div class="nav-header">
       <%= link_to "/" do %>
-        <%# image_tag('logo3.png', size: "80x60", alt: "Edit Entry") %>
-        <h3>Save and do it</h3>
+      <h3 class="h-100 d-flex align-items-center justify-content-center me-1">SAVE AND <span class="text-decoration-line-through ms-2">DO IT</span></h3>
       <% end %>
     </div>
     <div class="nav-btn" id="n">

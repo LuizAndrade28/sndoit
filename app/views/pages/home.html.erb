@@ -18,7 +18,8 @@
       <%= paginate @todos, theme: 'default' %>
     </div>
   </div>
-    <main>
+  
+  <main>
     <% if @todos && !@todos.empty? %>
       <% @todos.each do |todo| %>
           <div class="card-todo">
@@ -42,13 +43,7 @@
                 <% end %>
                 <p><%= todo.title %></p>
                 <%# IMPORTANCE LEVEL %>
-                <% if todo.importance == "High" %>
-                  <i class="fa-solid fa-circle" style="color: #ff0000;"></i>
-                <% elsif todo.importance == "Medium" %>
-                  <i class="fa-solid fa-circle" style="color: #cf8d30;"></i>
-                <% elsif todo.importance == "Low" %>
-                  <i class="fa-solid fa-circle" style="color: #50ce69;"></i>
-                <% end %>
+                <p><%= todo.importance_icon %></p>
               </div>
               <p><%= todo.date_created %></p>
             </div>
