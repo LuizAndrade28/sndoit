@@ -1,14 +1,14 @@
-<div id="todo-form-card">
+<div class="form-card">
   <%= simple_form_for(@todo) do |f| %>
     <%= f.error_notification %>
     <% if f.object.errors[:base].present? %>
       <%= f.error_notification message: f.object.errors[:base].to_sentence %>
     <% end %>
 
-    <div id="todo-form-in">
-      <%= f.input :title, label: 'Title', label_html: {class: "todo-form-card__label"}, input_html: {class: "todo-form-in__inpsel"} %>
-      <%= f.input :importance, label: 'Importance level', collection: [ "High", "Medium", "Low" ], label_html: {class: "todo-form-card__label"}, input_html: {class: "todo-form-in__inpsel"} %>
-      <%= f.input :notes, label: 'Details', label_html: {class: "todo-form-card__label"}, input_html: {class: "todo-form-in__textarea"} %>
+    <div id="form-in">
+      <%= f.input :title, label: 'Title', label_html: {class: "form-card__label"}, input_html: {class: "form-in__inpsel"} %>
+      <%= f.input :importance, label: 'Importance level', collection: [ "High", "Medium", "Low" ], label_html: {class: "form-card__label"}, input_html: {class: "form-in__inpsel"} %>
+      <%= f.input :notes, label: 'Details', label_html: {class: "form-card__label"}, input_html: {class: "form-in__textarea"} %>
     </div>
 
     <div id="todo-btns">

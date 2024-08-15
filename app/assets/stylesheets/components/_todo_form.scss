@@ -1,4 +1,4 @@
-#todo-form-card {
+.form-card {
   margin: 2rem;
   margin-top: 3rem;
   padding: 2rem;
@@ -8,17 +8,17 @@
   box-shadow: #6c6c6c 0.1rem 0.1rem 0.3rem 0.1rem;
 }
 
-.todo-form-card__label {
+.form-card__label {
   font-size: 1.5rem;
 }
 
-.todo-form-in__inpsel {
+.form-in__inpsel {
   min-height: 5vh !important;
   font-size: 1.4rem !important;
   border-radius: .5rem !important;
 }
 
-.todo-form-in__textarea {
+.form-in__textarea {
   min-height: 20vh !important;
   font-size: 1.4rem !important;
   border-radius: .5rem !important;
@@ -53,4 +53,13 @@
   background-color: transparent !important;
   color: white !important;
   border-radius: .1rem solid white !important;
+}
+
+.input-form {
+  color: orange;
+  background-color: orange;
+}
+
+.input-form:checked {
+  background-color: orange !important;
 }
