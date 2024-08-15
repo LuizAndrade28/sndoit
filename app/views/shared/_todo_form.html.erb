@@ -5,15 +5,17 @@
       <%= f.error_notification message: f.object.errors[:base].to_sentence %>
     <% end %>
 
-    <div id="form-in">
+    <div>
       <%= f.input :title, label: 'Title', label_html: {class: "form-card__label"}, input_html: {class: "form-in__inpsel"} %>
       <%= f.input :importance, label: 'Importance level', collection: [ "High", "Medium", "Low" ], label_html: {class: "form-card__label"}, input_html: {class: "form-in__inpsel"} %>
       <%= f.input :notes, label: 'Details', label_html: {class: "form-card__label"}, input_html: {class: "form-in__textarea"} %>
     </div>
 
-    <div id="todo-btns">
+    <div class="todo-btns">
         <%= f.submit "Save", class: "todo-btns__btn shadow-sm", name: "confirm" %>
-        <%= f.submit "Save and create subtask ", class: "todo-btns__btn shadow-sm", name: "confirm_and_subtodo" %>
+        <% if action_name != "edit" %>
+          <%= f.submit "Save and create subtask ", class: "todo-btns__btn shadow-sm", name: "confirm_and_subtodo" %>
+        <% end %>
         <%= link_to "Back", request.referer || root_path, class: "todo-btns__btn shadow-sm" %>
     </div>
   <% end %>
