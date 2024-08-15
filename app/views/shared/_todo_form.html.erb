@@ -7,7 +7,7 @@
 
     <div>
       <%= f.input :title, label: 'Title', label_html: {class: "form-card__label"}, input_html: {class: "form-in__inpsel"} %>
-      <%= f.input :importance, label: 'Importance level', collection: [ "High", "Medium", "Low" ], label_html: {class: "form-card__label"}, input_html: {class: "form-in__inpsel"} %>
+      <%= f.input :importance, label: 'Importance level', collection: [ "High", "Medium", "Low" ], label_html: { class: "form-card__label" }, input_html: {class: "form-in__inpsel"} %>
       <%= f.input :notes, label: 'Details', label_html: {class: "form-card__label"}, input_html: {class: "form-in__textarea"} %>
     </div>
 

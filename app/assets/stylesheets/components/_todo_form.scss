@@ -18,10 +18,19 @@
   border-radius: .5rem !important;
 }
 
+
 .form-in__textarea {
   min-height: 20vh !important;
   font-size: 1.4rem !important;
   border-radius: .5rem !important;
+}
+
+.form-in__inpsel:focus,
+.form-in__textarea:focus {
+  border-color: orange; /* Cor da borda quando o input estiver em foco */
+  outline: none; /* Remove o contorno padrão do navegador */
+  box-shadow: 0 0 .5rem orange; /* Adiciona uma sombra para destacar */
+  background-color: blanchedalmond;
 }
 
 .todo-btns {
