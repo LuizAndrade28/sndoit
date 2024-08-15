@@ -1,18 +1,22 @@
-<%= simple_form_for(@todo) do |f| %>
-  <%= f.error_notification %>
-  <% if f.object.errors[:base].present? %>
-    <%= f.error_notification message: f.object.errors[:base].to_sentence %>
+<div class="form-card">
+  <%= simple_form_for(@todo) do |f| %>
+    <%= f.error_notification %>
+    <% if f.object.errors[:base].present? %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence %>
+    <% end %>
+
+    <div>
+      <%= f.input :title, label: 'Title', label_html: {class: "form-card__label"}, input_html: {class: "form-in__inpsel"} %>
+      <%= f.input :importance, label: 'Importance level', collection: [ "High", "Medium", "Low" ], label_html: { class: "form-card__label" }, input_html: {class: "form-in__inpsel"} %>
+      <%= f.input :notes, label: 'Details', label_html: {class: "form-card__label"}, input_html: {class: "form-in__textarea"} %>
+    </div>
+
+    <div class="todo-btns">
+        <%= f.submit "Save", class: "todo-btns__btn shadow-sm", name: "confirm" %>
+        <% if action_name != "edit" %>
+          <%= f.submit "Save and create subtask ", class: "todo-btns__btn shadow-sm", name: "confirm_and_subtodo" %>
+        <% end %>
+        <%= link_to "Back", request.referer || root_path, class: "todo-btns__btn shadow-sm" %>
+    </div>
   <% end %>
-
-  <div class="form-inputs p-text-sizing">
-    <%= f.input :title, label: 'Título' %>
-    <%= f.input :importance, label: 'Importância', collection: [ "High", "Medium", "Low" ] %>
-    <%= f.input :notes, label: 'Detalhes' %>
-  </div>
-
-  <div class="form-actions d-flex pt-4">
-    <%= f.submit "Save", class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm me-3 p-text-sizing", name: "confirm" %>
-    <%= f.submit "Save and create subtodo ", class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm me-3 p-text-sizing", name: "confirm_and_subtodo" %>
-    <%= link_to "Back", request.referer || root_path, class: "flex-grow-1 w-100 btn btn-outline-primary shadow-sm p-text-sizing" %>
-  </div>
-<% end %>
+</div>
