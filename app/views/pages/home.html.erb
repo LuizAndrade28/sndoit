@@ -41,7 +41,7 @@
                 <%= link_to todo_path(todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Completar todo?"} do %>
                   <i class="fa-solid fa-square"></i>
                 <% end %>
-                <p><%= todo.title %></p>
+                <p><%= todo.title_short %></p>
                 <%# IMPORTANCE LEVEL %>
                 <p><%= todo.importance_icon %></p>
               </div>
