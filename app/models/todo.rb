@@ -1,8 +1,10 @@
 class Todo < ApplicationRecord
+  include ActionView::Helpers::TextHelper
+
   belongs_to :user
   has_many :subtodos, dependent: :destroy
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: 55 }
 
   def date_created
     created_at.strftime("%d/%m/%Y")
@@ -14,13 +16,20 @@ class Todo < ApplicationRecord
 
   def importance_icon
     if importance == "High"
-      '<i class="fa-solid fa-circle" style="color: #ff0000;"></i>'.html_safe
+      '<i class="fa-solid fa-circle" style="color: #ff0000 !important;"></i>'.html_safe
     elsif importance == "Medium"
-      '<i class="fa-regular fa-circle" style="color: #cf8d30;"></i>'.html_safe
+      '<i class="fa-solid fa-circle" style="color: #ebeb1e !important;"></i>'.html_safe
     elsif importance == "Low"
-      '<i class="fa-regular fa-circle" style="color: #50ce69;"></i>'.html_safe
+      '<i class="fa-solid fa-circle" style="color: #50ce69 !important;"></i>'.html_safe
     end
   end
 
-  # default_scope -> { order(created_at: :desc) }
+  def title_with_icon
+    "#{truncate(title.capitalize, length: 55)} #{importance_icon}".html_safe
+  end
+
+  def title_short
+    truncate(title.capitalize, length: 15)
+  end
+
 end
