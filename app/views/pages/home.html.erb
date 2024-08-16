@@ -1,14 +1,7 @@
 <% if current_user %>
   <header>
-    <span class="line-sep"></span>
-    <div id="content">
-      <h4>SUMMARY</h4>
-      <div class="d-flex align-items-center">
-        <p class="header-count-todo"><%= @todos_uncompleted %> TO-DOS</p>
-        <p class="header-count-todo"><%= @todos_completed %> DONE</p>
-      </div>
-    </div>
-    <span span class="line-sep"></span>
+    <%# Title and todos countdown %>
+    <%= render 'header' %>
   </header>
 
   <div class="card-track-header">
@@ -27,7 +20,7 @@
               <p><%= todo.subtodos.count %> subtasks</p>
               <div class="todo-header-icons">
                 <%# LINK TO DELETE TODO %>
-                <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Você tem certeza?" } do %>
+                <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This action is irreversible." } do %>
                   <i class="fa-solid fa-circle-xmark ms-2" style="color: #fd0808;"></i>
                 <% end %>
                 <%# LINK TO SEE TODO %>
@@ -49,23 +42,15 @@
             </div>
           </div>
       <% end %>
-    <% elsif @todos.nil? || @todos.empty? %>
-      <p>WELL, TIME TO CREATE A TO-DO, RIGHT? <i class="fa-regular fa-face-grin-tongue-wink"></i></p>
     <% end %>
   </main>
 
   <footer>
+    <%# Button to create todo %>
     <%= render 'shared/new_todo' %>
   </footer>
+
 <% else %>
-  <div class="out-div">
-    <div class="content">
-      <div id="logo-test" class="main d-flex justify-content-center align-items-center">
-        <%= image_tag('text-front-page.png', size: "160x120") %>
-      </div>
-      <div class="aside">
-        <%= render "devise/sessions/new", resource: @resource, resource_name: @resource_name, devise_mapping: @devise_mapping %>
-      </div>
-    </div>
-  </div>
+  <%# Login layout %>
+  <%= render 'login' %>
 <% end %>

@@ -4,7 +4,7 @@ class Todo < ApplicationRecord
   belongs_to :user
   has_many :subtodos, dependent: :destroy
 
-  validates :title, presence: true, length: { maximum: 55 }
+  validates :title, presence: true, length: { maximum: 50 }
 
   def date_created
     created_at.strftime("%d/%m/%Y")
