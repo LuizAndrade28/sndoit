@@ -4,11 +4,14 @@ class TodosController < ApplicationController
   after_action :verify_authorized, only: %i[show]
 
   def show
-    # @status = @todo.status == false ? "Pending" : "Completed"
+    # Get todo
     @todo = authorize Todo.find(params[:id])
+
+    # Navigate to previous todo or to next todo
     @previous_todo = Todo.where("id < ? AND user_id = ? AND status = ?", @todo.id, current_user.id, false).order(id: :desc).first
     @next_todo = Todo.where("id > ? AND user_id = ? AND status = ?", @todo.id, current_user.id, false).order(id: :asc).first
 
+    # Get subtodos
     @subtodos = policy_scope(Subtodo).where(todo: @todo)
     @subtodo = @todo.subtodos.new
   end
@@ -24,12 +27,6 @@ class TodosController < ApplicationController
     @todo.status = false
 
     authorize @todo
-
-    # if @todo.save
-    #   redirect_to @todo, notice: 'Todo was successfully created. 🟢'
-    # else
-    #   render 'new', notice: 'Todo was not created. 🔴'
-    # end
 
     respond_to do |format|
       if params[:confirm].present? && @todo.save!
@@ -47,6 +44,7 @@ class TodosController < ApplicationController
 
   def update
     if params[:complete].present?
+      # Complete todo and subtodos
       @todo.status = true
       if @todo.save!
         @todo.subtodos.each do |subtodo|
@@ -56,6 +54,7 @@ class TodosController < ApplicationController
       end
       redirect_to root_path, notice: 'Todo was successfully completed. 🟢'
     elsif params[:uncomplete].present?
+      # Restore todo and subtodos
       @todo.status = false
       @todo.save!
       redirect_to todo_path(@todo)
@@ -72,8 +71,9 @@ class TodosController < ApplicationController
   end
 
   def completed
-    @todos = Todo.where(status: true)
-
+    # Get completed todos
+    @todos = policy_scope(Todo).where(status: true)
+    # Paginate todos
     @todos = @todos.page(params[:page]).per(6)
 
     authorize @todos

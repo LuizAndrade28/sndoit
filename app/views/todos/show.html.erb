@@ -1,17 +1,10 @@
 <header>
-  <div class="navigate-td">
-    <% if @previous_todo %>
-      <%= link_to '< Previous todo', todo_path(@previous_todo, sort_by: params[:sort_by]) %>
-    <% end %>
-
-    <% if @next_todo %>
-      <%= link_to 'Next todo >', todo_path(@next_todo, sort_by: params[:sort_by]) %>
-    <% end %>
-  </div>
+  <%= render 'navigation' %>
 
   <h1 class="todo-title"><%= @todo.title_with_icon %></h1>
 </header>
 
+<%# Todo card %>
 <div class="todo-card-s">
   <div class="todo-card-header">
     <div class="todo-card-bg">
@@ -24,6 +17,7 @@
     </div>
   </div>
 
+  <%# Todo subtodos %>
   <div class="todo-card-sn limit-over">
     <div class="d-flex align-items-center">
       <h3 class="me-2">Subtasks</h3>
@@ -40,7 +34,7 @@
               <p><%= subtodo.title %></p>
               <div>
                 <%= link_to todo_subtodo_path(@todo, subtodo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Complete subtodo?" } do %>
-                        <i class="fa-solid fa-circle-check" style="color: #2cc396;"></i>
+                  <i class="fa-solid fa-circle-check" style="color: #2cc396;"></i>
                 <% end %>
                 <%= link_to edit_todo_subtodo_path(@todo, subtodo) do %>
                   <i class="fa-regular fa-pen-to-square"></i>
@@ -50,8 +44,8 @@
                 <% end %>
               </div>
             <% elsif subtodo.status == true %>
+              <p><del><%= subtodo.title %></del></p>
               <div>
-                <p><del><%= subtodo.title %></del></p>
                 <%= link_to todo_subtodo_path(@todo, subtodo, uncomplete: true), data: { turbo_method: :patch, turbo_confirm: "Uncomplete subtodo?" } do %>
                   <i class="fa-solid fa-rotate-left"></i>
                 <% end %>
@@ -66,6 +60,7 @@
     <% end %>
   </div>
 
+  <%# Todo notes %>
   <div class="todo-card-sn limit-over">
     <h3>Notes</h3>
     <% if !@todo.notes.empty? %>

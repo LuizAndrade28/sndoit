@@ -4,9 +4,11 @@ class PagesController < ApplicationController
   def home
     if current_user && Todo.any?
 
+      # Count todos
       @todos_uncompleted = policy_scope(Todo).where(status: false, user_id: current_user.id).count
       @todos_completed = policy_scope(Todo).where(status: true, user_id: current_user.id).count
 
+      # Sort todos
       @todos = policy_scope(Todo).where(status: false)
       @todos_default = @todos.order(created_at: :desc)
 
@@ -25,7 +27,6 @@ class PagesController < ApplicationController
     end
 
     @todos = @todos&.page(params[:page])&.per(7)
-    # @todos = @todos.page(params[:page]).per(7)
 
     # Devise login
     @resource = User.new
