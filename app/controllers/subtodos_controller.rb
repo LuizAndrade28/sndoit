@@ -21,7 +21,6 @@ class SubtodosController < ApplicationController
       elsif params[:confirm_and_new].present? && @subtodo.save
         format.html { redirect_to new_todo_subtodo_path(@todo), notice: 'Subtodo was successfully created. 🟢' }
       elsif params[:finish].present?
-        @subtodo.destroy
         format.html { redirect_to todo_path(@todo) }
       else
         format.html { render :new, notice: 'Subtodo was not created. 🔴' }
@@ -34,14 +33,17 @@ class SubtodosController < ApplicationController
 
   def update
     if params[:complete].present?
+      # Complete subtodo
       @subtodo.status = true
       @subtodo.save!
-      redirect_to todo_path(@todo)
+      redirect_to todo_path(@todo), notice: 'Subtodo was successfully finished. 🟢'
     elsif params[:uncomplete].present?
+      # Restore subtodo
       @subtodo.status = false
       @subtodo.save!
-      redirect_to todo_path(@todo)
+      redirect_to todo_path(@todo), notice: 'Subtodo was successfully restored. 🟢'
     elsif @subtodo.update(subtodo_params)
+      # Edit and update subtodo
       redirect_to todo_path(@todo), notice: 'Subtodo was successfully updated. 🟢'
     else
       render 'edit', notice: 'Subtodo was not updated. 🔴'
@@ -50,7 +52,7 @@ class SubtodosController < ApplicationController
 
   def destroy
     @subtodo.destroy!
-    redirect_to todo_path(@todo), notice: 'Subtodo deleted!'
+    redirect_to todo_path(@todo), notice: 'Subtodo was successfully deleted!'
   end
 
   private

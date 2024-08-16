@@ -40,7 +40,7 @@
               <p><%= subtodo.title %></p>
               <div>
                 <%= link_to todo_subtodo_path(@todo, subtodo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Complete subtodo?" } do %>
-                        <i class="fa-solid fa-circle-check" style="color: #2cc396;"></i>
+                  <i class="fa-solid fa-circle-check" style="color: #2cc396;"></i>
                 <% end %>
                 <%= link_to edit_todo_subtodo_path(@todo, subtodo) do %>
                   <i class="fa-regular fa-pen-to-square"></i>
