@@ -1,29 +1,29 @@
-<%# Page title %>
-<span class="line-sep"></span>
-<h1 class="text-center"><span class="text-decoration-line-through">COMPLETED</span> TODOS</h1>
-<span span class="line-sep"></span>
+<div class="grid-todo">
+  <%# Page title %>
+  <h1 class="todo-title"><span class="text-decoration-line-through">COMPLETED</span> TODOS</h1>
 
-<div id="todo-comp-out">
-  <% @todos.each do |todo| %>
-    <div class="card-todo-comp">
-      <div class="d-flex justify-content-between align-items-center">
-        <h2><%= todo.title %></h2>
-        <div class="d-flex">
-          <%= link_to todo_path(todo, uncomplete: true), data: { turbo_method: :patch, turbo_confirm: "Restore subtodo?" } do %>
-            <i class="fa-solid fa-rotate-left"></i>
-          <% end %>
-          <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
-            <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
-          <% end %>
+  <div id="todo-comp-out">
+    <% @todos.each do |todo| %>
+      <div class="card-todo-comp">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2><%= todo.title %></h2>
+          <div class="d-flex">
+            <%= link_to todo_path(todo, uncomplete: true), data: { turbo_method: :patch, turbo_confirm: "Restore subtodo?" } do %>
+              <i class="fa-solid fa-rotate-left"></i>
+            <% end %>
+            <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+              <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
+            <% end %>
+          </div>
         </div>
+        <p>Created at: <%= todo.date_created %></p>
+        <p>Completed in: <%= todo.date_updated %></p>
       </div>
-      <p>Created at: <%= todo.date_created %></p>
-      <p>Completed in: <%= todo.date_updated %></p>
-    </div>
-  <% end %>
+    <% end %>
 
-  <%# POST PAGINATION %>
-  <div class="pagination-container d-flex justify-content-end">
-    <%= paginate @todos, theme: 'default' %>
+    <%# POST PAGINATION %>
+    <div class="pagination-container d-flex justify-content-end">
+      <%= paginate @todos, theme: 'default' %>
+    </div>
   </div>
 </div>

@@ -20,8 +20,12 @@
   <body>
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
-    <div class="my-selector">
+    <% if action_name != "show" %>
+      <div class="my-selector">
+        <%= yield %>
+      </div>
+    <% else %>
       <%= yield %>
-    </div>
+    <% end %>
   </body>
 </html>
