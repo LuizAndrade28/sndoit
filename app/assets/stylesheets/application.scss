@@ -58,14 +58,36 @@ body {
 }
 
 // Media query fonts
-// @media (max-width: 1000px) {
-//   h1 {
-//     font-size: 100px;
-//   }
-// }
+@media (max-width: 1000px) {
+  h1 {
+    font-size: 100px;
+  }
+}
 
 // @media (max-width: 500px) {
 //   h1 {
 //     font-size: 50px;
 //   }
 // }
+@media (min-width: 651px) {
+  .my-selector {
+    display: grid;
+    grid-template-areas:
+        ". . . . . ."
+        ". . todo todo . ."
+        ". . todo todo . ."
+        ". . . . . ."
+    ;
+    gap: 1.5rem;
+  }
+
+  // .todo-main-grid {
+  //   display: grid;
+  //   grid-template-columns: 1fr 1fr;
+  //   column-gap: .8rem;
+  // }
+
+  .grid-todo {
+    grid-area: todo;
+  }
+}

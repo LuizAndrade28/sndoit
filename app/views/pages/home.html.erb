@@ -1,54 +1,57 @@
 <% if current_user %>
-  <header>
-    <%# Title and todos countdown %>
-    <%= render 'header' %>
-  </header>
+  <div class="grid-todo">
+    <header>
+      <%# Title and todos countdown %>
+      <%= render 'header' %>
+    </header>
 
-  <div class="card-track-header">
-    <%= render 'shared/sort_by' %>
-    <%# POST PAGINATION %>
-    <div class="pagination-container">
-      <%= paginate @todos, theme: 'default' %>
+    <div class="card-track-header">
+      <%= render 'shared/sort_by' %>
+      <%# POST PAGINATION %>
+      <div class="pagination-container">
+        <%= paginate @todos, theme: 'default' %>
+      </div>
     </div>
-  </div>
 
-  <main>
-    <% if @todos && !@todos.empty? %>
-      <% @todos.each do |todo| %>
-          <div class="card-todo">
-            <div class="todo-header">
-              <p><%= todo.subtodos.count %> subtasks</p>
-              <div class="todo-header-icons">
-                <%# LINK TO DELETE TODO %>
-                <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This action is irreversible." } do %>
-                  <i class="fa-solid fa-circle-xmark ms-2" style="color: #fd0808;"></i>
-                <% end %>
-                <%# LINK TO SEE TODO %>
-                <%= link_to todo_path(todo) do %>
-                  <i class="fa-regular fa-eye ms-2"></i>
-                <% end %>
+    <main class="todo-main-grid">
+      <% if @todos && !@todos.empty? %>
+        <% @todos.each do |todo| %>
+            <div class="card-todo">
+              <div class="todo-header">
+                <p><%= todo.subtodos.count %> subtasks</p>
+                <div class="todo-header-icons">
+                  <%# LINK TO DELETE TODO %>
+                  <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This action is irreversible." } do %>
+                    <i class="fa-solid fa-circle-xmark ms-2" style="color: #fd0808;"></i>
+                  <% end %>
+                  <%# LINK TO SEE TODO %>
+                  <%= link_to todo_path(todo) do %>
+                    <i class="fa-regular fa-eye ms-2"></i>
+                  <% end %>
+                </div>
+              </div>
+              <div class="todo-main">
+                <div class="d-flex align-items-center">
+                  <%= link_to todo_path(todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Completar todo?"} do %>
+                    <i class="fa-solid fa-square"></i>
+                  <% end %>
+                  <p><%= todo.title_short %></p>
+                  <%# IMPORTANCE LEVEL %>
+                  <p><%= todo.importance_icon %></p>
+                </div>
+                <p><%= todo.date_created %></p>
               </div>
             </div>
-            <div class="todo-main">
-              <div class="d-flex align-items-center">
-                <%= link_to todo_path(todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Completar todo?"} do %>
-                  <i class="fa-solid fa-square"></i>
-                <% end %>
-                <p><%= todo.title_short %></p>
-                <%# IMPORTANCE LEVEL %>
-                <p><%= todo.importance_icon %></p>
-              </div>
-              <p><%= todo.date_created %></p>
-            </div>
-          </div>
+        <% end %>
       <% end %>
-    <% end %>
-  </main>
+    </main>
 
-  <footer>
-    <%# Button to create todo %>
-    <%= render 'shared/new_todo' %>
-  </footer>
+    <footer>
+      <%# Button to create todo %>
+      <%= render 'shared/new_todo' %>
+    </footer>
+
+  </div>
 
 <% else %>
   <%# Login layout %>
