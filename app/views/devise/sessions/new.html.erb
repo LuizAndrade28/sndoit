@@ -1,0 +1,30 @@
+<div class="out-div grid-todo">
+  <div class="content">
+    <div id="logo-test" class="main d-flex justify-content-center align-items-center">
+      <%= image_tag('text-front-page.png', size: "160x120") %>
+    </div>
+    <div class="aside">
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { data: { turbo: false } }) do |f| %>
+        <div id="form-login">
+          <div class="mt-4 mb-3">
+            <%= f.input :email,
+                        required: false,
+                        autofocus: true,
+                        input_html: { autocomplete: "email", class: "form-in__inpsel"  } %>
+            <%= f.input :password,
+                        required: false,
+                        input_html: { autocomplete: "current-password", class: "form-in__inpsel"  } %>
+            <%= f.input :remember_me, input_html: { class: "input-form"  }, as: :boolean if devise_mapping.rememberable? %>
+          </div>
+
+          <div class="form-actions">
+            <div class="d-flex justify-content-between">
+              <%= f.button :submit, "Log in", class: "login-btn login-btn__width" %>
+              <%= link_to "Sign up", new_registration_path(resource_name), class: "login-btn login-btn__width"%>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

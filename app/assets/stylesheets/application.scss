@@ -58,14 +58,46 @@ body {
 }
 
 // Media query fonts
-// @media (max-width: 1000px) {
-//   h1 {
-//     font-size: 100px;
-//   }
-// }
+@media (max-width: 650px) {
+  p {
+    font-size: 1.2rem;
+  }
+}
 
 // @media (max-width: 500px) {
 //   h1 {
 //     font-size: 50px;
 //   }
 // }
+@media (min-width: 651px) {
+  .my-selector {
+    display: grid;
+    grid-template-areas:
+        ". . . . . ."
+        ". . todo todo . ."
+        ". . todo todo . ."
+        ". . . . . ."
+    ;
+    gap: 1.5rem;
+  }
+
+  // .todo-main-grid {
+  //   display: grid;
+  //   grid-template-columns: 1fr 1fr;
+  //   column-gap: .8rem;
+  // }
+  p {
+    font-size: 1.4rem;
+  }
+
+  .grid-todo {
+    grid-area: todo;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Exo 2", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: italic;
+}

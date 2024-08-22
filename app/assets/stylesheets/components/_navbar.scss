@@ -1,5 +1,5 @@
 .nav {
-  height: 50px;
+  height: 5rem;
   width: 100%;
   background-color: #CF9A7B;
   position: relative;
@@ -11,7 +11,7 @@
   width: 75%;
   text-align: center;
   background-color: white;
-  border: 1px solid black;
+  border: .1rem solid black;
   margin: .5rem 2.6rem;
   border-radius: .5rem;
 }
@@ -48,7 +48,80 @@
   display: none;
 }
 
-@media (max-width:600px) {
+@media (min-width:651px) {
+  .nav {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0 6rem;
+    height: 5rem;
+    width: 100%;
+    background-color: #CF9A7B;
+    position: relative;
+    box-shadow: #6c6c6c 0rem 0rem 0.2rem 0.1rem;
+  }
+
+  .nav > .nav-header {
+    font-weight: 400;
+    padding: 1rem;
+    width: 30% !important;
+    text-align: center;
+    background-color: white;
+    border: .1rem solid black;
+    margin: .5rem 0rem;
+    border-radius: .5rem;
+    height: 80%;
+  }
+
+  .nav > .nav-header h3 {
+    // font-size: 2.2vmin;
+    font-family: 'Bungee Tint', sans-serif !important;
+    font-style: normal !important;
+  }
+
+  .nav > .nav-links {
+    display: flex;
+    align-items: center;
+    padding: 13px 10px 13px 10px;
+    text-decoration: none;
+    color: #efefef;
+  }
+
+  .nav > .nav-links p {
+    padding-right: .8rem;
+    margin-right: .8rem;
+    border-right: .3rem solid wheat !important;
+    // font-size: 2vmin;
+  }
+
+  .nav > .nav-links p:last-child {
+    border-right: none !important;
+    margin-right: 0rem !important;
+  }
+
+}
+
+@media (max-width:708px) {
+  .nav {
+    padding: 0 3rem;
+  }
+
+  .nav > .nav-header {
+    flex: 1;
+  }
+}
+
+@media (max-width:650px) {
+  .nav {
+    padding: 0;
+    padding-right: 4rem;
+  }
+
+  .nav > .nav-header h3 {
+    font-family: 'Bungee Tint', sans-serif !important;
+    font-style: normal !important;
+  }
+
   .nav > .nav-btn {
     display: inline-block;
     position: absolute;

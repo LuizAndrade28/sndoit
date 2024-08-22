@@ -1,90 +1,92 @@
-<header>
-  <%= render 'navigation' %>
+<div class="grid-todo d-flex flex-column align-items-center">
+  <header>
+    <%= render 'navigation' %>
 
-  <h1 class="todo-title"><%= @todo.title_with_icon %></h1>
-</header>
+    <h1 class="todo-title-show"><%= @todo.title_with_icon %></h1>
+  </header>
 
-<%# Todo card %>
-<div class="todo-card-s">
-  <div class="todo-card-header">
-    <div class="todo-card-bg">
-      <h3>Created at</h3>
-      <p><%= @todo.date_created %></p>
-    </div>
-    <div class="todo-card-bg">
-      <h3>Importance</h3>
-      <p><%= @todo.importance %></p>
-    </div>
-  </div>
-
-  <%# Todo subtodos %>
-  <div class="todo-card-sn limit-over">
-    <div class="d-flex align-items-center">
-      <h3 class="me-2">Subtasks</h3>
-      <%= link_to new_todo_subtodo_path(@todo, @subtodo) do %>
-        <i class="fa-solid fa-plus"></i>
-      <% end %>
+  <%# Todo card %>
+  <div class="todo-card-s">
+    <div class="todo-card-header">
+      <div class="todo-card-bg">
+        <h3>Created at</h3>
+        <p><%= @todo.date_created %></p>
+      </div>
+      <div class="todo-card-bg">
+        <h3>Importance</h3>
+        <p><%= @todo.importance %></p>
+      </div>
     </div>
 
-    <% if @subtodos.present? %>
-      <% @subtodos.each do |subtodo| %>
-        <% if policy(subtodo).edit? && policy(subtodo).destroy? && policy(subtodo).update? %>
-          <div class="d-flex justify-content-between">
-            <% if subtodo.status == false %>
-              <p><%= subtodo.title %></p>
-              <div>
-                <%= link_to todo_subtodo_path(@todo, subtodo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Complete subtodo?" } do %>
-                  <i class="fa-solid fa-circle-check" style="color: #2cc396;"></i>
-                <% end %>
-                <%= link_to edit_todo_subtodo_path(@todo, subtodo) do %>
-                  <i class="fa-regular fa-pen-to-square"></i>
-                <% end %>
-                <%= link_to todo_subtodo_path(@todo, subtodo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
-                  <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
-                <% end %>
-              </div>
-            <% elsif subtodo.status == true %>
-              <p><del><%= subtodo.title %></del></p>
-              <div>
-                <%= link_to todo_subtodo_path(@todo, subtodo, uncomplete: true), data: { turbo_method: :patch, turbo_confirm: "Uncomplete subtodo?" } do %>
-                  <i class="fa-solid fa-rotate-left"></i>
-                <% end %>
-                <%= link_to todo_subtodo_path(@todo, subtodo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
-                  <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
+    <%# Todo subtodos %>
+    <div class="todo-card-sn limit-over">
+      <div class="d-flex align-items-center">
+        <h3 class="me-2">Subtasks</h3>
+        <%= link_to new_todo_subtodo_path(@todo, @subtodo) do %>
+          <i class="fa-regular fa-square-plus d-flex align-items-center pt-1"></i>
         <% end %>
-      <% end %>
-    <% end %>
-  </div>
+      </div>
 
-  <%# Todo notes %>
-  <div class="todo-card-sn limit-over">
-    <h3>Notes</h3>
-    <% if !@todo.notes.empty? %>
-      <p class="limit-over"><%= @todo.notes %></p>
-    <% end %>
-  </div>
-
-  <div class="d-flex justify-content-end">
-    <div class="d-flex align-items-center">
-      <% if policy(@todo).edit? && policy(@todo).destroy? %>
-        <%= link_to todo_path(@todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Completar todo?"} do %>
-          <i class="fa-solid fa-square-check me-1" style="color: #2CC39D"></i>
-        <% end %>
-        <%= link_to edit_todo_path(@todo) do %>
-          <i class="fa-solid fa-pen-to-square me-1" style="color: #fff"></i>
-        <% end %>
-        <%= link_to todo_path(@todo), data: { turbo_method: :delete, turbo_confirm: "Você tem certeza?" } do %>
-          <i class="fa-solid fa-square-xmark" style="color: #fd0808;"></i>
+      <% if @subtodos.present? %>
+        <% @subtodos.each do |subtodo| %>
+          <% if policy(subtodo).edit? && policy(subtodo).destroy? && policy(subtodo).update? %>
+            <div class="d-flex justify-content-between">
+              <% if subtodo.status == false %>
+                <p><%= subtodo.title %></p>
+                <div>
+                  <%= link_to todo_subtodo_path(@todo, subtodo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Finish subtodo and save?" } do %>
+                    <i class="fa-solid fa-circle-check" style="color: #2cc396;"></i>
+                  <% end %>
+                  <%= link_to edit_todo_subtodo_path(@todo, subtodo) do %>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  <% end %>
+                  <%= link_to todo_subtodo_path(@todo, subtodo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+                    <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
+                  <% end %>
+                </div>
+              <% elsif subtodo.status == true %>
+                <p><del><%= subtodo.title %></del></p>
+                <div>
+                  <%= link_to todo_subtodo_path(@todo, subtodo, uncomplete: true), data: { turbo_method: :patch, turbo_confirm: "Uncomplete subtodo?" } do %>
+                    <i class="fa-solid fa-rotate-left"></i>
+                  <% end %>
+                  <%= link_to todo_subtodo_path(@todo, subtodo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+                    <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>
-  </div>
-</div>
 
-<div class="todo-footer">
-  <%= link_to 'Back to home', root_path %>
+    <%# Todo notes %>
+    <div class="todo-card-sn limit-over">
+      <h3>Notes</h3>
+      <% if @todo.notes.present? %>
+        <p class="limit-over"><%= @todo.notes %></p>
+      <% end %>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <div class="d-flex align-items-center">
+        <% if policy(@todo).edit? && policy(@todo).destroy? %>
+          <%= link_to todo_path(@todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Finish todo and save?"} do %>
+            <i class="fa-solid fa-square-check me-1" style="color: #2CC39D"></i>
+          <% end %>
+          <%= link_to edit_todo_path(@todo) do %>
+            <i class="fa-solid fa-pen-to-square me-1" style="color: #fff"></i>
+          <% end %>
+          <%= link_to todo_path(@todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+            <i class="fa-solid fa-square-xmark" style="color: #fd0808;"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="todo-footer">
+    <%= link_to 'Back to home', root_path %>
+  </div>
 </div>

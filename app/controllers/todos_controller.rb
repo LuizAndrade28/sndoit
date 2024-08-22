@@ -24,6 +24,7 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new(todo_params)
     @todo.user_id = current_user.id
+    @todo.title.capitalize!
     @todo.status = false
 
     authorize @todo
@@ -72,7 +73,7 @@ class TodosController < ApplicationController
 
   def completed
     # Get completed todos
-    @todos = policy_scope(Todo).where(status: true)
+    @todos = policy_scope(Todo).where(status: true).order(updated_at: :desc)
     # Paginate todos
     @todos = @todos.page(params[:page]).per(6)
 
