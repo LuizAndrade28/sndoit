@@ -23,7 +23,7 @@
       <div class="d-flex align-items-center">
         <h3 class="me-2">Subtasks</h3>
         <%= link_to new_todo_subtodo_path(@todo, @subtodo) do %>
-          <i class="fa-solid fa-plus"></i>
+          <i class="fa-regular fa-square-plus d-flex align-items-center pt-1"></i>
         <% end %>
       </div>
 
@@ -34,7 +34,7 @@
               <% if subtodo.status == false %>
                 <p><%= subtodo.title %></p>
                 <div>
-                  <%= link_to todo_subtodo_path(@todo, subtodo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Complete subtodo?" } do %>
+                  <%= link_to todo_subtodo_path(@todo, subtodo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Finish subtodo and save?" } do %>
                     <i class="fa-solid fa-circle-check" style="color: #2cc396;"></i>
                   <% end %>
                   <%= link_to edit_todo_subtodo_path(@todo, subtodo) do %>
@@ -72,13 +72,13 @@
     <div class="d-flex justify-content-end">
       <div class="d-flex align-items-center">
         <% if policy(@todo).edit? && policy(@todo).destroy? %>
-          <%= link_to todo_path(@todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Completar todo?"} do %>
+          <%= link_to todo_path(@todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Finish todo and save?"} do %>
             <i class="fa-solid fa-square-check me-1" style="color: #2CC39D"></i>
           <% end %>
           <%= link_to edit_todo_path(@todo) do %>
             <i class="fa-solid fa-pen-to-square me-1" style="color: #fff"></i>
           <% end %>
-          <%= link_to todo_path(@todo), data: { turbo_method: :delete, turbo_confirm: "Você tem certeza?" } do %>
+          <%= link_to todo_path(@todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
             <i class="fa-solid fa-square-xmark" style="color: #fd0808;"></i>
           <% end %>
         <% end %>

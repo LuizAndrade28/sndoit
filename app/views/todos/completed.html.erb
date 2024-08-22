@@ -5,13 +5,13 @@
   <div id="todo-comp-out">
     <% @todos.each do |todo| %>
       <div class="card-todo-comp">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center mb-2">
           <h2><%= todo.title %></h2>
           <div class="d-flex">
-            <%= link_to todo_path(todo, uncomplete: true), data: { turbo_method: :patch, turbo_confirm: "Restore subtodo?" } do %>
-              <i class="fa-solid fa-rotate-left"></i>
+            <%= link_to todo_path(todo, uncomplete: true), data: { turbo_method: :patch, turbo_confirm: "Restore todo?" } do %>
+              <i class="fa-solid fa-rotate-left me-2"></i>
             <% end %>
-            <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+            <%= link_to todo_path(todo), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This action is irreversible" } do %>
               <i class="fa-solid fa-circle-xmark" style="color: #fd0808;"></i>
             <% end %>
           </div>

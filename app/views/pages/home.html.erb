@@ -32,7 +32,7 @@
               </div>
               <div class="todo-main">
                 <div class="d-flex align-items-center">
-                  <%= link_to todo_path(todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Completar todo?"} do %>
+                  <%= link_to todo_path(todo, complete: true), data: { turbo_method: :patch, turbo_confirm: "Finish todo and save?"} do %>
                     <i class="fa-solid fa-square"></i>
                   <% end %>
                   <p><%= todo.title_short %></p>
